@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">ShopIn</string>
+    <string name="start_shopping_journey">Start your shopping journey now!</string>
+    <string name="login">Login</string>
+    <string name="singup">Singup\n</string>
 </resources>
