@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -33,11 +35,12 @@ fun AuthScreen(
     modifier: Modifier,
     onLoginClick: () -> Unit = {},
     onSignupClick: () -> Unit = {}
-    ) {
+) {
 
     Column(
         modifier = modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .background(color = colorResource(R.color.light_yellow))
             .padding(15.dp),
         verticalArrangement = Arrangement.Center,
@@ -46,8 +49,8 @@ fun AuthScreen(
         Text(
             text = stringResource(R.string.app_name),
             color = Color.Black,
-            fontFamily = FontFamily.Monospace,
-            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.Default,
+            fontWeight = FontWeight.SemiBold,
             fontSize = 30.sp,
             modifier = Modifier.padding(bottom = 10.dp)
         )
@@ -65,10 +68,10 @@ fun AuthScreen(
         Text(
             text = stringResource(R.string.start_shopping_journey),
             color = Color.Black,
-            fontFamily = FontFamily.Monospace,
-            fontWeight = FontWeight.SemiBold,
+            fontFamily = FontFamily.Default,
+            fontWeight = FontWeight.Medium,
             textAlign = TextAlign.Center,
-            fontSize = 20.sp,
+            fontSize = 22.sp,
             modifier = Modifier.padding(bottom = 10.dp)
         )
 
@@ -77,7 +80,7 @@ fun AuthScreen(
             onClick = onLoginClick,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(50.dp),
+                .height(60.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Black,
                 contentColor = Color.White
@@ -87,7 +90,7 @@ fun AuthScreen(
                 text = stringResource(R.string.login),
                 textAlign = TextAlign.Center,
                 fontSize = 22.sp,
-                fontFamily = FontFamily.Monospace
+                fontFamily = FontFamily.Default
             )
         }
         Spacer(modifier = Modifier.height(15.dp))
@@ -95,17 +98,17 @@ fun AuthScreen(
             onClick = onSignupClick,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(50.dp),
+                .height(60.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Black,
                 contentColor = Color.White
             )
         ) {
             Text(
-                text = stringResource(R.string.singup),
+                text = stringResource(R.string.signup),
                 textAlign = TextAlign.Center,
                 fontSize = 22.sp,
-                fontFamily = FontFamily.Monospace
+                fontFamily = FontFamily.Default
             )
         }
     }
