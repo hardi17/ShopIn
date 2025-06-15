@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.hardi.shopin.ui.auth.AuthScreen
+import com.hardi.shopin.ui.home.HomeScreen
 import com.hardi.shopin.ui.login.LoginScreen
 import com.hardi.shopin.ui.signup.SignupScreen
 
@@ -25,10 +26,19 @@ fun AppNavigation(modifier: Modifier = Modifier) {
                 onSignupClick = { navController.navigate(RouteScreen.SignupScreen.name) })
         }
         composable(RouteScreen.LoginScreen.name) {
-            LoginScreen(modifier)
+            LoginScreen(modifier, onSuccessLogin = {
+                navController.navigate(RouteScreen.HomeScreen.name)
+            })
         }
         composable(RouteScreen.SignupScreen.name) {
-            SignupScreen(modifier)
+            SignupScreen(modifier, onSuccessSignUp ={
+                navController.navigate(RouteScreen.HomeScreen.name)
+            })
+        }
+        composable(RouteScreen.HomeScreen.name) {
+            HomeScreen(modifier, onLogoutClick = {
+                navController.navigate(RouteScreen.AuthScreen.name)
+            })
         }
 
     }

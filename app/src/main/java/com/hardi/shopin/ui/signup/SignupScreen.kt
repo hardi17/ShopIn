@@ -22,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
@@ -30,15 +31,21 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hardi.shopin.R
+import com.hardi.shopin.utils.AppUtil
+import com.hardi.shopin.viewmodel.AuthViewModel
 
 @Composable
 fun SignupScreen(
-    modifier: Modifier
+    modifier: Modifier,
+    authViewModel: AuthViewModel = viewModel(),
+    onSuccessSignUp:() -> Unit = {}
 ) {
     var email by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    val context = LocalContext.current
 
     Column(
         modifier = modifier
@@ -95,7 +102,16 @@ fun SignupScreen(
 
         Spacer(modifier = Modifier.height(30.dp))
         Button(
-            onClick = { },
+            onClick = {
+                authViewModel.signUp(email, name, password) { success, message ->
+                    if (success) {
+                        AppUtil.showToast(context, message)
+                        onSuccessSignUp()
+                    } else {
+                        AppUtil.showToast(context, message)
+                    }
+                }
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(60.dp),
@@ -114,3 +130,4 @@ fun SignupScreen(
 
     }
 }
+
