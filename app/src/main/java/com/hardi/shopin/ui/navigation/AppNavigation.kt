@@ -7,8 +7,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.hardi.shopin.ui.auth.AuthScreen
 import com.hardi.shopin.ui.home.HomeScreen
-import com.hardi.shopin.ui.login.LoginScreen
-import com.hardi.shopin.ui.signup.SignupScreen
+import com.hardi.shopin.ui.auth.LoginScreen
+import com.hardi.shopin.ui.auth.SignupScreen
 
 @Composable
 fun AppNavigation(modifier: Modifier = Modifier) {

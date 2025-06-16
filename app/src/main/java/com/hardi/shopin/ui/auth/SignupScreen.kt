@@ -1,4 +1,4 @@
-package com.hardi.shopin.ui.login
+package com.hardi.shopin.ui.auth
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -31,21 +31,20 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.hardi.shopin.R
 import com.hardi.shopin.utils.AppUtil
 import com.hardi.shopin.viewmodel.AuthViewModel
 
 @Composable
-fun LoginScreen(
+fun SignupScreen(
     modifier: Modifier,
-    authViewModel: AuthViewModel = viewModel(),
-    onSuccessLogin: () -> Unit = {}
+    authViewModel: AuthViewModel = hiltViewModel(),
+    onSuccessSignUp: () -> Unit = {}
 ) {
-
     var email by remember { mutableStateOf("") }
+    var name by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-
     val context = LocalContext.current
 
     Column(
@@ -58,7 +57,7 @@ fun LoginScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = stringResource(R.string.welcome_back),
+            text = stringResource(R.string.hello_there),
             color = Color.Black,
             fontFamily = FontFamily.Default,
             fontWeight = FontWeight.SemiBold,
@@ -66,21 +65,28 @@ fun LoginScreen(
             modifier = Modifier.padding(bottom = 5.dp)
         )
         Text(
-            text = stringResource(R.string.login_to_your_account),
+            text = stringResource(R.string.signup_to_continue),
             color = Color.Black,
             fontFamily = FontFamily.Default,
             fontWeight = FontWeight.Medium,
-            fontSize = 22.sp,
+            fontSize = 20.sp,
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .padding(top = 10.dp, bottom = 10.dp)
         )
         Spacer(modifier = Modifier.height(25.dp))
-
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
             label = { Text(text = stringResource(R.string.enterEmail)) },
+            modifier = Modifier.fillMaxWidth(),
+            maxLines = 1
+        )
+        Spacer(modifier = Modifier.height(15.dp))
+        OutlinedTextField(
+            value = name,
+            onValueChange = { name = it },
+            label = { Text(text = stringResource(R.string.enterName)) },
             modifier = Modifier.fillMaxWidth(),
             maxLines = 1
         )
@@ -97,11 +103,11 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(30.dp))
         Button(
             onClick = {
-                authViewModel.logIn(email,password){ success, message ->
+                authViewModel.signUp(email, name, password) { success, message ->
                     if (success) {
                         AppUtil.showToast(context, message)
-                        onSuccessLogin()
-                    }else{
+                        onSuccessSignUp()
+                    } else {
                         AppUtil.showToast(context, message)
                     }
                 }
@@ -115,11 +121,13 @@ fun LoginScreen(
             )
         ) {
             Text(
-                text = stringResource(R.string.login),
+                text = stringResource(R.string.signup),
                 textAlign = TextAlign.Center,
                 fontSize = 22.sp,
                 fontFamily = FontFamily.Default
             )
         }
+
     }
 }
+

@@ -1,4 +1,4 @@
-package com.hardi.shopin.ui.signup
+package com.hardi.shopin.ui.auth
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -31,20 +31,21 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.hardi.shopin.R
 import com.hardi.shopin.utils.AppUtil
 import com.hardi.shopin.viewmodel.AuthViewModel
 
 @Composable
-fun SignupScreen(
+fun LoginScreen(
     modifier: Modifier,
-    authViewModel: AuthViewModel = viewModel(),
-    onSuccessSignUp:() -> Unit = {}
+    authViewModel: AuthViewModel = hiltViewModel(),
+    onSuccessLogin: () -> Unit = {}
 ) {
+
     var email by remember { mutableStateOf("") }
-    var name by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+
     val context = LocalContext.current
 
     Column(
@@ -57,7 +58,7 @@ fun SignupScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = stringResource(R.string.hello_there),
+            text = stringResource(R.string.welcome_back),
             color = Color.Black,
             fontFamily = FontFamily.Default,
             fontWeight = FontWeight.SemiBold,
@@ -65,28 +66,21 @@ fun SignupScreen(
             modifier = Modifier.padding(bottom = 5.dp)
         )
         Text(
-            text = stringResource(R.string.signup_to_continue),
+            text = stringResource(R.string.login_to_your_account),
             color = Color.Black,
             fontFamily = FontFamily.Default,
             fontWeight = FontWeight.Medium,
-            fontSize = 20.sp,
+            fontSize = 22.sp,
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .padding(top = 10.dp, bottom = 10.dp)
         )
         Spacer(modifier = Modifier.height(25.dp))
+
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
             label = { Text(text = stringResource(R.string.enterEmail)) },
-            modifier = Modifier.fillMaxWidth(),
-            maxLines = 1
-        )
-        Spacer(modifier = Modifier.height(15.dp))
-        OutlinedTextField(
-            value = name,
-            onValueChange = { name = it },
-            label = { Text(text = stringResource(R.string.enterName)) },
             modifier = Modifier.fillMaxWidth(),
             maxLines = 1
         )
@@ -103,10 +97,10 @@ fun SignupScreen(
         Spacer(modifier = Modifier.height(30.dp))
         Button(
             onClick = {
-                authViewModel.signUp(email, name, password) { success, message ->
+                authViewModel.logIn(email, password) { success, message ->
                     if (success) {
                         AppUtil.showToast(context, message)
-                        onSuccessSignUp()
+                        onSuccessLogin()
                     } else {
                         AppUtil.showToast(context, message)
                     }
@@ -121,13 +115,11 @@ fun SignupScreen(
             )
         ) {
             Text(
-                text = stringResource(R.string.signup),
+                text = stringResource(R.string.login),
                 textAlign = TextAlign.Center,
                 fontSize = 22.sp,
                 fontFamily = FontFamily.Default
             )
         }
-
     }
 }
-
