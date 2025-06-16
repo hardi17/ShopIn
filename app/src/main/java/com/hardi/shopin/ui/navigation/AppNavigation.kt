@@ -5,6 +5,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import com.hardi.shopin.ui.auth.AuthScreen
 import com.hardi.shopin.ui.auth.LoginScreen
 import com.hardi.shopin.ui.auth.SignupScreen
@@ -15,9 +17,17 @@ fun AppNavigation(modifier: Modifier = Modifier) {
 
     val navController = rememberNavController()
 
+    val isLoggedIn = Firebase.auth.currentUser != null
+    val firstPage =
+        if (isLoggedIn) {
+            RouteScreen.ShopInMainScreen.name
+        } else {
+            RouteScreen.AuthScreen.name
+        }
+
     NavHost(
         navController = navController,
-        startDestination = RouteScreen.AuthScreen.name
+        startDestination = firstPage
     ) {
         composable(RouteScreen.AuthScreen.name) {
             AuthScreen(
