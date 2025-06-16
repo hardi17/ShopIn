@@ -15,6 +15,7 @@ firebaseFirestore = "25.1.4"
 hiltAndroid = "2.48"
 hiltCommon = "1.2.0"
 hiltNavigationCompose = "1.2.0"
+foundationLayoutAndroid = "1.7.2"
 
 
 [libraries]
@@ -39,6 +40,7 @@ androidx-hilt-common = { module = "androidx.hilt:hilt-common", version.ref = "hi
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltAndroid" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+androidx-foundation-layout-android = { group = "androidx.compose.foundation", name = "foundation-layout-android", version.ref = "foundationLayoutAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

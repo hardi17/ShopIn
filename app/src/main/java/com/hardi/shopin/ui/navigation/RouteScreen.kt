@@ -6,5 +6,5 @@ sealed class RouteScreen(
     object AuthScreen : RouteScreen("Auth")
     object LoginScreen : RouteScreen("Login")
     object SignupScreen : RouteScreen("Signup")
-    object HomeScreen : RouteScreen("Home")
+    object ShopInMainScreen : RouteScreen("ShopIn")
 }
