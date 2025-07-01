@@ -56,6 +56,10 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
 
+    //coil
+    implementation(libs.coil.kt.coil.compose)
+    implementation(libs.dotsindicator)
+
     //hilt
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.common)

@@ -19,6 +19,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.colorResource
+import com.hardi.shopin.R
 
 @Composable
 fun ShopInMainScreen(
@@ -31,7 +33,9 @@ fun ShopInMainScreen(
 
     Scaffold(
         bottomBar = {
-            NavigationBar {
+            NavigationBar(
+                containerColor = colorResource(R.color.light_yellow)
+            ) {
                 bottomBarItems.forEachIndexed { index, bottomBarItems ->
                     NavigationBarItem(
                         selected = index == selectedIndex,

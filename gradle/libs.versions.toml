@@ -16,6 +16,8 @@ hiltAndroid = "2.48"
 hiltCommon = "1.2.0"
 hiltNavigationCompose = "1.2.0"
 foundationLayoutAndroid = "1.7.2"
+coilComposeVersion = "2.4.0"
+dotIndicator = "5.1.0"
 
 
 [libraries]
@@ -41,6 +43,8 @@ hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltA
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltAndroid" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 androidx-foundation-layout-android = { group = "androidx.compose.foundation", name = "foundation-layout-android", version.ref = "foundationLayoutAndroid" }
+coil-kt-coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilComposeVersion" }
+dotsindicator = { module = "com.tbuonomo:dotsindicator", version.ref = "dotIndicator" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
