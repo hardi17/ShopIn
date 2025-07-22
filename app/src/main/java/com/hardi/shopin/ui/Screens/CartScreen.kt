@@ -1,4 +1,4 @@
-package com.hardi.shopin.ui.home
+package com.hardi.shopin.ui.Screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.hardi.shopin.R
 
 @Composable
-fun FavoriteScreen (
+fun CartScreen (
     modifier: Modifier
 ){
     Column(
@@ -29,7 +29,7 @@ fun FavoriteScreen (
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Favorite Screen"
+            text = "Cart Screen"
         )
     }
 }

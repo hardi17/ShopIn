@@ -1,4 +1,4 @@
-package com.hardi.shopin.ui.home
+package com.hardi.shopin.ui.Screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

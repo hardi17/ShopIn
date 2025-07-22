@@ -13,8 +13,8 @@ import com.google.firebase.auth.auth
 import com.hardi.shopin.ui.auth.AuthScreen
 import com.hardi.shopin.ui.auth.LoginScreen
 import com.hardi.shopin.ui.auth.SignupScreen
-import com.hardi.shopin.ui.home.CategoryProductScreen
-import com.hardi.shopin.ui.home.ShopInMainScreen
+import com.hardi.shopin.ui.Screens.CategoryProductScreen
+import com.hardi.shopin.ui.Screens.ShopInMainScreen
 import com.hardi.shopin.utils.AppConstant.CATEGORY_ID
 
 @Composable

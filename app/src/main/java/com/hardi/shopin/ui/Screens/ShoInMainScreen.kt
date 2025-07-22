@@ -1,4 +1,4 @@
-package com.hardi.shopin.ui.home
+package com.hardi.shopin.ui.Screens
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
