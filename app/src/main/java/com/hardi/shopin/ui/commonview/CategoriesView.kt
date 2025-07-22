@@ -25,14 +25,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.navArgument
 import coil.compose.AsyncImage
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hardi.shopin.data.model.Category
 import com.hardi.shopin.ui.navigation.GlobalNavigation
 import com.hardi.shopin.ui.navigation.RouteScreen
-import com.hardi.shopin.utils.AppConstant.CATEGORY_ID
 
 @Composable
 fun CategoriesView() {
@@ -87,9 +85,9 @@ fun CategoryItem(item: Category) {
             AsyncImage(
                 model = item.imageUrl,
                 contentDescription = "Category image",
-                modifier = Modifier.size(60.dp)
+                modifier = Modifier.size(70.dp)
             )
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(5.dp))
             Text(
                 text = item.name,
                 textAlign = TextAlign.Center,
