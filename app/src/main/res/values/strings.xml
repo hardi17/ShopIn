@@ -13,4 +13,7 @@
     <string name="login_to_your_account">Log in to your account.</string>
     <string name="hello_there">Hello there!</string>
     <string name="categories">Categories</string>
+    <string name="addToCart">Add to cart</string>
+    <string name="description">Description :</string>
+    <string name="otherdetails">Other Product Details:</string>
 </resources>

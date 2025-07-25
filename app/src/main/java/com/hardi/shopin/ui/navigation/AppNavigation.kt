@@ -1,5 +1,6 @@
 package com.hardi.shopin.ui.navigation
 
+import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -10,12 +11,14 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
+import com.hardi.shopin.ui.Screens.CategoryProductScreen
+import com.hardi.shopin.ui.Screens.ProductDetailsScreen
+import com.hardi.shopin.ui.Screens.ShopInMainScreen
 import com.hardi.shopin.ui.auth.AuthScreen
 import com.hardi.shopin.ui.auth.LoginScreen
 import com.hardi.shopin.ui.auth.SignupScreen
-import com.hardi.shopin.ui.Screens.CategoryProductScreen
-import com.hardi.shopin.ui.Screens.ShopInMainScreen
 import com.hardi.shopin.utils.AppConstant.CATEGORY_ID
+import com.hardi.shopin.utils.AppConstant.PRODUCT_ID
 
 @Composable
 fun AppNavigation(modifier: Modifier = Modifier) {
@@ -64,17 +67,27 @@ fun AppNavigation(modifier: Modifier = Modifier) {
             ShopInMainScreen(modifier)
         }
 
-        composable(RouteScreen.CategoryProductScreen.name,
-            arguments = listOf(navArgument(CATEGORY_ID){ type = NavType.StringType })
-        ){
-            var categoryId = it.arguments?.getString(CATEGORY_ID)?: ""
+        composable(
+            RouteScreen.CategoryProductScreen.name,
+            arguments = listOf(navArgument(CATEGORY_ID) { type = NavType.StringType })
+        ) {
+            var categoryId = it.arguments?.getString(CATEGORY_ID) ?: ""
             CategoryProductScreen(modifier, categoryId)
+        }
+
+        composable(
+            RouteScreen.ProductDetailsScreen.name,
+            arguments = listOf(navArgument(PRODUCT_ID) { type = NavType.StringType })
+        ) {
+            var productId = it.arguments?.getString(PRODUCT_ID) ?: ""
+            ProductDetailsScreen(modifier, productId)
         }
 
     }
 
 }
 
-object GlobalNavigation{
+object GlobalNavigation {
+    @SuppressLint("StaticFieldLeak")
     lateinit var navController: NavHostController
 }

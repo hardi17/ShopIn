@@ -1,5 +1,6 @@
 package com.hardi.shopin.ui.Screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -34,6 +35,8 @@ import coil.compose.AsyncImage
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hardi.shopin.data.model.Product
+import com.hardi.shopin.ui.navigation.GlobalNavigation
+import com.hardi.shopin.ui.navigation.RouteScreen
 
 @Composable
 fun CategoryProductScreen(modifier: Modifier, categoryId: String) {
@@ -79,7 +82,13 @@ fun CategoryProductScreen(modifier: Modifier, categoryId: String) {
 @Composable
 fun ProductItem(item: Product, modifier: Modifier) {
     Card(
-        modifier = modifier.padding(5.dp),
+        modifier = modifier
+            .padding(5.dp)
+            .clickable {
+                GlobalNavigation.navController.navigate(
+                    RouteScreen.ProductDetailsScreen.passArg(item.id)
+                )
+            },
         shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(5.dp)

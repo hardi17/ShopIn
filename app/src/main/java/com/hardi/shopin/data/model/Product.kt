@@ -8,5 +8,6 @@ data class Product(
     val actualPrice: String = " ",
     val size: List<String> = emptyList(),
     val images: List<String> = emptyList(),
-    val category: String = " "
+    val category: String = " ",
+    val otherDetails: Map<String, String> = mapOf()
 )
