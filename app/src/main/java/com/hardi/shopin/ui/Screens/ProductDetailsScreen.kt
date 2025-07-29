@@ -1,5 +1,6 @@
 package com.hardi.shopin.ui.Screens
 
+import android.content.Context
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -28,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -40,6 +42,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hardi.shopin.R
 import com.hardi.shopin.data.model.Product
+import com.hardi.shopin.utils.AppUtil
 import com.tbuonomo.viewpagerdotsindicator.compose.DotsIndicator
 import com.tbuonomo.viewpagerdotsindicator.compose.model.DotGraphic
 import com.tbuonomo.viewpagerdotsindicator.compose.type.ShiftIndicatorType
@@ -50,6 +53,8 @@ fun ProductDetailsScreen(modifier: Modifier, productId: String) {
     var product = remember {
         mutableStateOf(Product())
     }
+
+    var context = LocalContext.current
 
     LaunchedEffect(key1 = Unit) {
         Firebase.firestore.collection("data")
@@ -67,12 +72,12 @@ fun ProductDetailsScreen(modifier: Modifier, productId: String) {
     }
 
 
-    ItemDetails(modifier, item = product.value)
+    ItemDetails(modifier, item = product.value, context, productId)
 
 }
 
 @Composable
-fun ItemDetails(modifier: Modifier, item: Product) {
+fun ItemDetails(modifier: Modifier, item: Product, context: Context, productId: String) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -154,7 +159,9 @@ fun ItemDetails(modifier: Modifier, item: Product) {
         Spacer(modifier = Modifier.height(7.dp))
 
         Button(
-            onClick = { /*TODO*/ },
+            onClick = {
+                AppUtil.addItemToCart(productId, context)
+            },
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Black,
             ),

@@ -1,7 +1,8 @@
 package com.hardi.shopin.data.model
 
 data class User(
-    val name: String,
-    val email: String,
-    val userId: String
+    val name: String ="",
+    val email: String ="",
+    val userId: String ="",
+    val cartItem: Map<String, String> = emptyMap()
 )

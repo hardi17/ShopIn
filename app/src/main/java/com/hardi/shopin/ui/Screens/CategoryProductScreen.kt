@@ -26,6 +26,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
@@ -37,6 +38,7 @@ import com.google.firebase.ktx.Firebase
 import com.hardi.shopin.data.model.Product
 import com.hardi.shopin.ui.navigation.GlobalNavigation
 import com.hardi.shopin.ui.navigation.RouteScreen
+import com.hardi.shopin.utils.AppUtil
 
 @Composable
 fun CategoryProductScreen(modifier: Modifier, categoryId: String) {
@@ -81,6 +83,8 @@ fun CategoryProductScreen(modifier: Modifier, categoryId: String) {
 
 @Composable
 fun ProductItem(item: Product, modifier: Modifier) {
+    var context = LocalContext.current
+
     Card(
         modifier = modifier
             .padding(5.dp)
@@ -129,7 +133,9 @@ fun ProductItem(item: Product, modifier: Modifier) {
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 IconButton(
-                    onClick = { /*TODO*/ }
+                    onClick = {
+                        AppUtil.addItemToCart(item.id,context)
+                    }
                 ) {
                     Icon(
                         imageVector = Icons.Default.ShoppingCart,
