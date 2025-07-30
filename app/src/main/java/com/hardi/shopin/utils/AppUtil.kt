@@ -3,6 +3,7 @@ package com.hardi.shopin.utils
 import android.content.Context
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -35,4 +36,34 @@ object AppUtil {
             }
         }
     }
+
+    fun removeItemFromCart(context: Context, productId: String, removeAll: Boolean = false) {
+        val userDoc = Firebase.firestore.collection("user")
+            .document(FirebaseAuth.getInstance().currentUser?.uid!!)
+
+        userDoc.get().addOnCompleteListener {
+            if (it.isSuccessful) {
+                val currentCart = it.result.get("cartItems") as? Map<String, Long> ?: emptyMap()
+                val currentQuantity = currentCart[productId]?: 0
+                val updateQuantity = currentQuantity - 1
+
+                val updateCart =
+                    if(updateQuantity <= 0 || removeAll){
+                        mapOf("cartItems.$productId" to FieldValue.delete())
+                    }else{
+                        mapOf("cartItems.$productId" to updateQuantity)
+                    }
+
+                userDoc.update(updateCart)
+                    .addOnCompleteListener{
+                        if(it.isSuccessful){
+                            showToast(context, "Item removed from cart")
+                        }else{
+                            showToast(context, "Failed to remove from cart")
+                        }
+                    }
+            }
+        }
+    }
+
 }

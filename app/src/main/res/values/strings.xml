@@ -16,4 +16,7 @@
     <string name="addToCart">Add to cart</string>
     <string name="description">Description :</string>
     <string name="otherdetails">Other Product Details:</string>
+    <string name="yourCart">Your Cart</string>
+    <string name="emptyCart">Your cart is empty \nAdd something to make happy :)</string>
+    <string name="checkout">Checkout</string>
 </resources>
