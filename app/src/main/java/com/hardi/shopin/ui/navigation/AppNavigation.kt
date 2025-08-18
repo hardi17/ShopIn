@@ -11,10 +11,10 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
-import com.hardi.shopin.ui.Screens.CategoryProductScreen
-import com.hardi.shopin.ui.Screens.CheckoutScreen
-import com.hardi.shopin.ui.Screens.ProductDetailsScreen
-import com.hardi.shopin.ui.Screens.ShopInMainScreen
+import com.hardi.shopin.ui.screens.CategoryProductScreen
+import com.hardi.shopin.ui.screens.CheckoutScreen
+import com.hardi.shopin.ui.screens.ProductDetailsScreen
+import com.hardi.shopin.ui.screens.ShopInMainScreen
 import com.hardi.shopin.ui.auth.AuthScreen
 import com.hardi.shopin.ui.auth.LoginScreen
 import com.hardi.shopin.ui.auth.SignupScreen

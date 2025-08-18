@@ -1,4 +1,4 @@
-package com.hardi.shopin.ui.Screens
+package com.hardi.shopin.ui.screens
 
 import android.content.Context
 import androidx.compose.foundation.layout.Column

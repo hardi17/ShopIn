@@ -1,4 +1,4 @@
-package com.hardi.shopin.ui.Screens
+package com.hardi.shopin.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -16,9 +16,10 @@ import androidx.compose.ui.unit.dp
 import com.hardi.shopin.R
 
 @Composable
-fun FavoriteScreen (
+fun ProfileScreen(
     modifier: Modifier
-){
+) {
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -29,7 +30,8 @@ fun FavoriteScreen (
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Favorite Screen"
+            text = "Profile Screen"
         )
     }
+
 }
