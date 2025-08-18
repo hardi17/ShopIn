@@ -10,6 +10,7 @@ sealed class RouteScreen(
     object LoginScreen : RouteScreen("Login")
     object SignupScreen : RouteScreen("Signup")
     object ShopInMainScreen : RouteScreen("ShopIn")
+    object CheckoutScreen : RouteScreen("checkout")
     object CategoryProductScreen : RouteScreen("CategoryProduct/{$CATEGORY_ID}"){
         fun passArg(categoryId: String) = "CategoryProduct/$categoryId"
     }

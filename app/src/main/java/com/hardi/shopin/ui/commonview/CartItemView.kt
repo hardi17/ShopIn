@@ -1,5 +1,6 @@
 package com.hardi.shopin.ui.commonview
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -33,6 +34,8 @@ import coil.compose.AsyncImage
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hardi.shopin.data.model.Product
+import com.hardi.shopin.ui.navigation.GlobalNavigation
+import com.hardi.shopin.ui.navigation.RouteScreen
 import com.hardi.shopin.utils.AppUtil
 
 @Composable
@@ -60,7 +63,10 @@ fun CartItemView(productId: String, qty: Long) {
     Card(
         modifier = Modifier
             .padding(5.dp)
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .clickable {
+                GlobalNavigation.navController.navigate(RouteScreen.ProductDetailsScreen.passArg(productId))
+            },
         shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(5.dp)
@@ -91,7 +97,7 @@ fun CartItemView(productId: String, qty: Long) {
                 Spacer(modifier = Modifier.height(3.dp))
 
                 Text(
-                    text = product.price,
+                    text = "$" +product.price,
                     fontWeight = FontWeight.SemiBold,
                 )
 

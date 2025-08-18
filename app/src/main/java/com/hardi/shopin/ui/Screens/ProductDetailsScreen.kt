@@ -134,14 +134,14 @@ fun ItemDetails(modifier: Modifier, item: Product, context: Context, productId: 
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = item.actualPrice,
+                text = "$" + item.actualPrice,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold,
                 style = TextStyle(textDecoration = TextDecoration.LineThrough)
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                text = item.price,
+                text = "$" + item.price,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
             )

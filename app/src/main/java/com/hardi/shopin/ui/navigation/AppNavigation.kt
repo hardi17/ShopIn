@@ -12,6 +12,7 @@ import androidx.navigation.navArgument
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.hardi.shopin.ui.Screens.CategoryProductScreen
+import com.hardi.shopin.ui.Screens.CheckoutScreen
 import com.hardi.shopin.ui.Screens.ProductDetailsScreen
 import com.hardi.shopin.ui.Screens.ShopInMainScreen
 import com.hardi.shopin.ui.auth.AuthScreen
@@ -83,6 +84,9 @@ fun AppNavigation(modifier: Modifier = Modifier) {
             ProductDetailsScreen(modifier, productId)
         }
 
+        composable(RouteScreen.CheckoutScreen.name) {
+            CheckoutScreen(modifier)
+        }
     }
 
 }

@@ -122,13 +122,13 @@ fun ProductItem(item: Product, modifier: Modifier) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = item.actualPrice,
+                    text = "$" +item.actualPrice,
                     fontWeight = FontWeight.SemiBold,
                     style = TextStyle(textDecoration = TextDecoration.LineThrough)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = item.price,
+                    text = "$" +item.price,
                     fontWeight = FontWeight.SemiBold,
                 )
                 Spacer(modifier = Modifier.weight(1f))

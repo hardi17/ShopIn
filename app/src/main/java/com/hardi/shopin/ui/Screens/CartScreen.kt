@@ -33,6 +33,8 @@ import com.google.firebase.ktx.Firebase
 import com.hardi.shopin.R
 import com.hardi.shopin.data.model.User
 import com.hardi.shopin.ui.commonview.CartItemView
+import com.hardi.shopin.ui.navigation.GlobalNavigation
+import com.hardi.shopin.ui.navigation.RouteScreen
 
 @Composable
 fun CartScreen(
@@ -83,7 +85,7 @@ fun CartScreen(
 
             Button(
                 onClick = {
-
+                    GlobalNavigation.navController.navigate(RouteScreen.CheckoutScreen.name)
                 },
                 modifier = Modifier
                     .fillMaxWidth()
