@@ -44,6 +44,7 @@ fun SignupScreen(
 ) {
     var email by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
+    var address by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     val context = LocalContext.current
 
@@ -87,6 +88,14 @@ fun SignupScreen(
             value = name,
             onValueChange = { name = it },
             label = { Text(text = stringResource(R.string.enterName)) },
+            modifier = Modifier.fillMaxWidth(),
+            maxLines = 1
+        )
+        Spacer(modifier = Modifier.height(15.dp))
+        OutlinedTextField(
+            value = address,
+            onValueChange = { address = it },
+            label = { Text(text = stringResource(R.string.enterAddress)) },
             modifier = Modifier.fillMaxWidth(),
             maxLines = 1
         )
