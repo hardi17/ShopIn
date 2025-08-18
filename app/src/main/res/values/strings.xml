@@ -20,4 +20,10 @@
     <string name="yourCart">Your Cart</string>
     <string name="emptyCart">Your cart is empty \nAdd something to make happy :)</string>
     <string name="checkout">Checkout</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="discount">Discount (-)</string>
+    <string name="tax">Tax (+)</string>
+    <string name="toPay">To Pay</string>
+    <string name="deliverTo">Deliver To:</string>
+    <string name="shippingAddress">Shipping Address:</string>
 </resources>
