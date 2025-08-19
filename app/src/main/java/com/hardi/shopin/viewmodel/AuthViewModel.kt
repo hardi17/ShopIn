@@ -13,13 +13,13 @@ class AuthViewModel @Inject constructor(
     private val firestore: FirebaseFirestore
 ) : ViewModel() {
 
-    fun signUp(email: String, name: String, password: String, onResult: (Boolean, String) -> Unit) {
+    fun signUp(email: String, name: String, address: String, password: String, onResult: (Boolean, String) -> Unit) {
         if (email.isNotEmpty() && name.isNotEmpty() && password.isNotEmpty()) {
             firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
                         val userId = it.result?.user?.uid
-                        val userModel = User(name, email, userId!!)
+                        val userModel = User(name, address, email, userId!!)
                         storeUserData(userId, userModel, onResult)
                     } else {
                         onResult(false, it.exception?.localizedMessage.toString())

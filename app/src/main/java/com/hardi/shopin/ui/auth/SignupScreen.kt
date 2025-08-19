@@ -112,7 +112,7 @@ fun SignupScreen(
         Spacer(modifier = Modifier.height(30.dp))
         Button(
             onClick = {
-                authViewModel.signUp(email, name, password) { success, message ->
+                authViewModel.signUp(email, name, address, password) { success, message ->
                     if (success) {
                         AppUtil.showToast(context, message)
                         onSuccessSignUp()
