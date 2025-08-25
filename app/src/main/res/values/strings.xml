@@ -26,4 +26,5 @@
     <string name="toPay">To Pay</string>
     <string name="deliverTo">Deliver To:</string>
     <string name="shippingAddress">Shipping Address:</string>
+    <string name="payNow">Pay Now</string>
 </resources>

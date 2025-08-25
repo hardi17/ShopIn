@@ -67,6 +67,9 @@ dependencies {
     implementation(libs.androidx.foundation.layout.android)
     kapt(libs.hilt.compiler)
 
+    //razorpay
+    implementation(libs.checkout)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
