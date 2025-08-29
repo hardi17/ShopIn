@@ -8,23 +8,35 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.firebase.auth.FirebaseAuth
@@ -36,9 +48,15 @@ import com.hardi.shopin.data.model.User
 import com.hardi.shopin.ui.navigation.GlobalNavigation
 import com.hardi.shopin.ui.navigation.RouteScreen
 import com.hardi.shopin.utils.AppUtil
+import com.hardi.shopin.utils.PaymentMethods
 
 @Composable
 fun CheckoutScreen(modifier: Modifier) {
+
+    var showSheet by remember { mutableStateOf(false) }
+    var selected by rememberSaveable { mutableStateOf(PaymentMethods.CARD) }
+    var showCODDialog by remember { mutableStateOf(false) }
+
 
     val user = remember {
         mutableStateOf(User())
@@ -63,6 +81,7 @@ fun CheckoutScreen(modifier: Modifier) {
         mutableStateOf(0f)
     }
 
+    var context = LocalContext.current
 
     fun calculateAndAssign() {
         productList.forEach {
@@ -74,7 +93,8 @@ fun CheckoutScreen(modifier: Modifier) {
             }
         }
 
-        discount.value = "%.2f".format(subTotal.value * (AppUtil.getDiscountValue()) / 100).toFloat()
+        discount.value =
+            "%.2f".format(subTotal.value * (AppUtil.getDiscountValue()) / 100).toFloat()
         tax.value = "%.2f".format(subTotal.value * (AppUtil.getTaxValue() / 100)).toFloat()
         total.value = "%.2f".format(subTotal.value - discount.value + tax.value).toFloat()
 
@@ -125,21 +145,27 @@ fun CheckoutScreen(modifier: Modifier) {
         HorizontalDivider()
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = stringResource(R.string.deliverTo) + user.value.name ,
+            text = stringResource(R.string.deliverTo) + user.value.name,
             fontWeight = FontWeight.Medium,
             fontSize = 18.sp
         )
         Text(
-            text = stringResource(R.string.shippingAddress)+ "\n" + user.value.address,
+            text = stringResource(R.string.shippingAddress) + "\n" + user.value.address,
             fontWeight = FontWeight.Medium,
             fontSize = 18.sp,
         )
         Spacer(modifier = Modifier.height(16.dp))
         HorizontalDivider()
         Spacer(modifier = Modifier.height(16.dp))
-        CheckOutItemView(title = stringResource(R.string.subtotal), value = subTotal.value.toString())
+        CheckOutItemView(
+            title = stringResource(R.string.subtotal),
+            value = subTotal.value.toString()
+        )
         Spacer(modifier = Modifier.height(16.dp))
-        CheckOutItemView(title = stringResource(R.string.discount), value = discount.value.toString())
+        CheckOutItemView(
+            title = stringResource(R.string.discount),
+            value = discount.value.toString()
+        )
         Spacer(modifier = Modifier.height(16.dp))
         CheckOutItemView(title = stringResource(R.string.tax), value = tax.value.toString())
         Spacer(modifier = Modifier.height(16.dp))
@@ -149,7 +175,7 @@ fun CheckoutScreen(modifier: Modifier) {
         Spacer(modifier = Modifier.height(20.dp))
         Button(
             onClick = {
-                AppUtil.startPayment(total.value)
+                showSheet = true
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -167,6 +193,192 @@ fun CheckoutScreen(modifier: Modifier) {
             )
         }
     }
+
+    PaymentBottomSheet(
+        visible = showSheet,
+        initialSelection = selected,
+        onDismiss = { showSheet = false },
+        onConfirm = { method ->
+            selected = method
+            showSheet = false
+            if (method == PaymentMethods.CARD) {
+                AppUtil.startPayment(total.value)
+            } else {
+                showCODDialog = true
+            }
+        }
+    )
+
+    PaymentDialog(
+        showDialog = showCODDialog,
+        onDismiss = { showCODDialog = false },
+        title = "Order Placed",
+        msg ="Cash on Delivery payment method selected. Your order has been confirmed and is being processed."
+    )
+}
+
+@Composable
+fun PaymentDialog(
+    showDialog: Boolean,
+    onDismiss: () -> Unit,
+    title: String,
+    msg: String,
+) {
+    if (showDialog) {
+        AlertDialog(
+            onDismissRequest = { }, // called if user taps outside dialog
+            title = { Text(title) },
+            text = { Text(msg) },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        AppUtil.clearCartAndAddToCart(PaymentMethods.COD.toString())
+                        val navController = GlobalNavigation.navController
+                        navController.popBackStack()
+                        navController.navigate(RouteScreen.ShopInMainScreen.name)
+                        onDismiss()
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Black,
+                        contentColor = Color.White
+                    )
+                ) {
+                    Text("Ok")
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        onDismiss()
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Black,
+                        contentColor = Color.White
+                    )
+                ) {
+                    Text("Cancel")
+                }
+            }
+        )
+
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun PaymentBottomSheet(
+    visible: Boolean,
+    initialSelection: PaymentMethods,
+    onDismiss: () -> Unit,
+    onConfirm: (PaymentMethods) -> Unit
+) {
+    if (!visible) return
+
+    var selection by rememberSaveable { mutableStateOf(initialSelection) }
+
+    ModalBottomSheet(
+        onDismissRequest = onDismiss,
+        dragHandle = { BottomSheetDefaults.DragHandle() }
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp, vertical = 12.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Text(
+                text = "Select Payment Method",
+                fontWeight = FontWeight.Bold,
+                fontSize = 18.sp
+            )
+            Spacer(Modifier.height(8.dp))
+
+            PaymentOptionRow(
+                title = "Card",
+                subtitle = "Pay securely with credit/debit card",
+                selected = selection == PaymentMethods.CARD,
+                onClick = { selection = PaymentMethods.CARD }
+            )
+            PaymentOptionRow(
+                title = "Cash On Delivery",
+                subtitle = "Pay with cash when the order arrives",
+                selected = selection == PaymentMethods.COD,
+                onClick = { selection = PaymentMethods.COD }
+            )
+
+            Spacer(Modifier.height(6.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Button(
+                    onClick = {
+                        onConfirm(selection)
+                    },
+                    modifier = Modifier
+                        .weight(1f),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Black,
+                        contentColor = Color.White
+                    )
+                ) {
+                    Text("Continue")
+                }
+
+                TextButton(
+                    onClick = onDismiss,
+                    modifier = Modifier
+                        .weight(1f),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Black,
+                        contentColor = Color.White
+                    )
+                ) {
+                    Text("Cancel")
+                }
+            }
+
+
+        }
+    }
+}
+
+@Composable
+fun PaymentOptionRow(title: String, subtitle: String, selected: Boolean, onClick: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+            .selectable(
+                selected = selected,
+                onClick = onClick,
+                role = Role.RadioButton
+            ),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        RadioButton(
+            selected = selected,
+            onClick = onClick,
+            colors = RadioButtonDefaults.colors(
+                selectedColor = Color.Black
+            )
+        )
+        Column(
+            Modifier.padding(start = 12.dp)
+        ) {
+            Text(
+                text = title,
+                fontWeight = FontWeight.Medium,
+                fontSize = 18.sp
+            )
+            Text(
+                text = subtitle,
+                fontWeight = FontWeight.ExtraLight,
+                fontSize = 14.sp
+            )
+        }
+    }
 }
 
 @Composable
@@ -174,7 +386,7 @@ fun CheckOutItemView(title: String, value: String) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.Absolute.SpaceBetween
-    ){
+    ) {
         Text(
             text = title,
             fontWeight = FontWeight.Medium,
