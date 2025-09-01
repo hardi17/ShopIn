@@ -18,6 +18,7 @@ import com.hardi.shopin.ui.screens.ShopInMainScreen
 import com.hardi.shopin.ui.auth.AuthScreen
 import com.hardi.shopin.ui.auth.LoginScreen
 import com.hardi.shopin.ui.auth.SignupScreen
+import com.hardi.shopin.ui.screens.OrderScreen
 import com.hardi.shopin.utils.AppConstant.CATEGORY_ID
 import com.hardi.shopin.utils.AppConstant.PRODUCT_ID
 
@@ -86,6 +87,10 @@ fun AppNavigation(modifier: Modifier = Modifier) {
 
         composable(RouteScreen.CheckoutScreen.name) {
             CheckoutScreen(modifier)
+        }
+
+        composable(RouteScreen.OrderScreen.name) {
+            OrderScreen(modifier)
         }
     }
 

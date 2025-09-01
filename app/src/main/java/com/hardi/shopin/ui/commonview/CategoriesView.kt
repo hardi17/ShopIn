@@ -3,11 +3,13 @@ package com.hardi.shopin.ui.commonview
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -31,6 +33,7 @@ import com.google.firebase.ktx.Firebase
 import com.hardi.shopin.data.model.Category
 import com.hardi.shopin.ui.navigation.GlobalNavigation
 import com.hardi.shopin.ui.navigation.RouteScreen
+import com.hardi.shopin.ui.screens.ProductItem
 
 @Composable
 fun CategoriesView() {
@@ -53,45 +56,51 @@ fun CategoriesView() {
             }
     }
 
-    LazyRow(
-        modifier = Modifier.padding(5.dp),
-        horizontalArrangement = Arrangement.spacedBy(10.dp)
+    LazyColumn(
+        modifier = Modifier.fillMaxSize()
     ) {
-        items(categoryList.value) { item ->
-            CategoryItem(item)
+        items(categoryList.value.chunked(2)) { rowItem ->
+            Row {
+                rowItem.forEach { item ->
+                    CategoryItem(item, modifier = Modifier.weight(1f))
+                }
+                if (rowItem.size == 1) {
+                    Spacer(modifier = Modifier.weight(1f))
+                }
+            }
         }
     }
 }
 
 @Composable
-fun CategoryItem(item: Category) {
+fun CategoryItem(item: Category, modifier: Modifier) {
     Card(
-        modifier = Modifier
-            .size(100.dp)
+        modifier = modifier
+            .padding(7.dp)
             .clickable {
                 GlobalNavigation.navController.navigate(
                     RouteScreen.CategoryProductScreen.passArg(item.id)
                 )
             },
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(8.dp),
         elevation = CardDefaults.cardElevation(4.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
     ) {
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize().padding(5.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
             AsyncImage(
                 model = item.imageUrl,
                 contentDescription = "Category image",
-                modifier = Modifier.size(70.dp)
+                modifier = Modifier.size(100.dp)
             )
             Spacer(modifier = Modifier.height(5.dp))
             Text(
                 text = item.name,
                 textAlign = TextAlign.Center,
-                fontSize = 15.sp,
+                fontSize = 18.sp,
                 fontWeight = FontWeight.Medium
             )
         }

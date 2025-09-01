@@ -27,4 +27,5 @@
     <string name="deliverTo">Deliver To:</string>
     <string name="shippingAddress">Shipping Address:</string>
     <string name="payNow">Pay Now</string>
+    <string name="yourProfile">Your Profile</string>
 </resources>
