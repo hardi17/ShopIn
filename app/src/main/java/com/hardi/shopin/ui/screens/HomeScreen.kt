@@ -25,7 +25,7 @@ fun HomeScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(12.dp)
     ) {
         HeaderView()
         Spacer(modifier = Modifier.padding(10.dp))
