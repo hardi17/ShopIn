@@ -32,12 +32,12 @@ From a technical standpoint, the app leverages the powerful combination of Kotli
   <img width="20%" src="https://github.com/user-attachments/assets/4eb85943-9a6e-4208-a86c-59cfad80e560" />
   <img width="20%" src="https://github.com/user-attachments/assets/e6eee418-4cb9-4946-93d2-321bb6bb8da4" />
 <img width="20%"  src="https://github.com/user-attachments/assets/55c93887-1c30-49a4-819c-11ad8490573b" />
+<img width="20%" alt="product list" src="https://github.com/user-attachments/assets/12509110-8977-4f26-87b2-0e596f63932e" />
 <img width="20%" height="2400" alt="product detail" src="https://github.com/user-attachments/assets/00696081-71a2-4279-ae6b-a4836b541442" />
 <img width="20%"  alt="cart" src="https://github.com/user-attachments/assets/898fae31-57c2-46ab-99c8-5654a5716de3" />
 <img width="20%" alt="checkout" src="https://github.com/user-attachments/assets/44ac333c-3454-487e-be96-ff9f9b7518c9" />
 <img width="20%" alt="Payment" src="https://github.com/user-attachments/assets/0270be01-9275-4fa9-a8bd-8258636e9e46" />
 <img width="20%" alt="COD order" src="https://github.com/user-attachments/assets/02adafe7-3594-4537-925c-76f3dc2b61b5" />
-<img width="20%" alt="card order" src="https://github.com/user-attachments/assets/b0556d61-5323-4429-8e5c-6556c93a235a" />
 <img width="20%"  alt="empty cart" src="https://github.com/user-attachments/assets/de401f09-6f75-44b2-8ba8-30ffc3df7f8d" />
 <img width="20%" alt="Profile " src="https://github.com/user-attachments/assets/10325c64-9b1d-43b3-b980-324754562438" />
 
